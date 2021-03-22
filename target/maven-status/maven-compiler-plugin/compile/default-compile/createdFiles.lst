@@ -1,0 +1,4 @@
+com\douineau\App.class
+com\douineau\provider\PropertyFileUserStorageProvider$1.class
+com\douineau\provider\PropertyFileUserStorageProvider.class
+com\douineau\provider\PropertyFileUserStorageProviderFactory.class
