@@ -1,1 +1,2 @@
-com.douineau.provider.PropertyFileUserStorageProviderFactory
+com.douineau.readonly.PropertyFileUserStorageProviderFactory
+com.douineau.writable.PropertyFileUserStorageProviderFactory

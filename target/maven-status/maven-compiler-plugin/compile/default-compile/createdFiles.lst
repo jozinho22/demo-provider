@@ -1,4 +1,7 @@
 com\douineau\App.class
-com\douineau\provider\PropertyFileUserStorageProvider$1.class
-com\douineau\provider\PropertyFileUserStorageProvider.class
-com\douineau\provider\PropertyFileUserStorageProviderFactory.class
+com\douineau\readonly\PropertyFileUserStorageProvider$1.class
+com\douineau\readonly\PropertyFileUserStorageProvider.class
+com\douineau\writable\PropertyFileUserStorageProvider$1.class
+com\douineau\readonly\PropertyFileUserStorageProviderFactory.class
+com\douineau\writable\PropertyFileUserStorageProvider.class
+com\douineau\writable\PropertyFileUserStorageProviderFactory.class

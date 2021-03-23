@@ -1,4 +1,4 @@
-package com.douineau.provider;
+package com.douineau.readonly;
 
 import org.keycloak.Config;
 import org.keycloak.component.ComponentModel;
@@ -10,37 +10,17 @@ import org.keycloak.storage.UserStorageProviderFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Logger;
+import org.jboss.logging.Logger;
 
 public class PropertyFileUserStorageProviderFactory implements UserStorageProviderFactory<PropertyFileUserStorageProvider> {
 
     public static final String PROVIDER_NAME = "readonly-property-file";
 
-    private static final Logger logger = Logger.getLogger(PropertyFileUserStorageProviderFactory.class.getName());
+    private static final Logger logger = Logger.getLogger(PropertyFileUserStorageProviderFactory.class);
     protected Properties properties = new Properties();
-
-    /**
-     * In our init() method implementation, we find the property file containing our user declarations from the classpath.
-     * We then load the properties field with the username and password combinations stored there.
-     * The Config.Scope parameter is factory configuration that can be set up within standalone.xml, standalone-ha.xml, or domain.xml.
-     * @param config
-     */
-    @Override
-    public void init(Config.Scope config) {
-        InputStream is = getClass().getClassLoader().getResourceAsStream("/users.properties");
-
-        if (is == null) {
-            logger.warning("Could not find users.properties in classpath");
-        } else {
-            try {
-                properties.load(is);
-            } catch (IOException ex) {
-                logger.severe("Failed to load users.properties file \n" + ex);
-            }
-        }
-    }
 
     /**
      * We simply allocate the PropertyFileUserStorageProvider class.
@@ -51,6 +31,10 @@ public class PropertyFileUserStorageProviderFactory implements UserStorageProvid
      */
     @Override
     public PropertyFileUserStorageProvider create(KeycloakSession session, ComponentModel model) {
+        logger.warn("session " + session);
+        logger.warn("model " + model);
+        logger.warn("properties " + properties);
+
         return new PropertyFileUserStorageProvider(session, model, properties);
     }
 
@@ -59,8 +43,31 @@ public class PropertyFileUserStorageProviderFactory implements UserStorageProvid
         return PROVIDER_NAME;
     }
 
+    /**
+     * In our init() method implementation, we find the property file containing our user declarations from the classpath.
+     * We then load the properties field with the username and password combinations stored there.
+     * The Config.Scope parameter is factory configuration that can be set up within standalone.xml, standalone-ha.xml, or domain.xml.
+     * @param config
+     */
+    @Override
+    public void init(Config.Scope config) {
+        logger.warn("public void init(Config.Scope config) ");
+
+        InputStream is = getClass().getClassLoader().getResourceAsStream("/users.properties");
+
+        if (is == null) {
+            logger.warn("Could not find users.properties in classpath");
+        } else {
+            try {
+                properties.load(is);
+            } catch (IOException ex) {
+                logger.error("Failed to load users.properties file \n" + ex);
+            }
+        }
+    }
 
     // methods from super-super interfaces
+    // probleme normalement inexistant car méthodes déjà définies par défaut
     @Override
     public void postInit(KeycloakSessionFactory var1) {
 
@@ -78,12 +85,12 @@ public class PropertyFileUserStorageProviderFactory implements UserStorageProvid
 
     @Override
     public String getHelpText() {
-        return null;
+        return "";
     }
 
     @Override
     public List<ProviderConfigProperty> getConfigProperties() {
-        return null;
+        return Collections.EMPTY_LIST;
     }
     // methods from super-super interfaces
 

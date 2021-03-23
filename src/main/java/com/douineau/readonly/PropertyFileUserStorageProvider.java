@@ -1,4 +1,4 @@
-package com.douineau.provider;
+package com.douineau.readonly;
 
 import org.keycloak.component.ComponentModel;
 import org.keycloak.credential.CredentialInput;
@@ -17,7 +17,6 @@ import java.util.*;
 
 public class PropertyFileUserStorageProvider
         implements UserStorageProvider, UserLookupProvider, CredentialInputValidator, CredentialInputUpdater {
-
 
     protected KeycloakSession session;
     protected Properties properties;
@@ -139,7 +138,6 @@ public class PropertyFileUserStorageProvider
             }
         }
         return adapter;
-
     }
 
     /**

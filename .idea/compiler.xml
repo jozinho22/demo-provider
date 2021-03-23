@@ -9,5 +9,8 @@
         <module name="demo-provider" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="demo-provider" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
